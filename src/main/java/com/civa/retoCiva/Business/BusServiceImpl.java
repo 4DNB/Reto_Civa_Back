@@ -1,6 +1,7 @@
 package com.civa.retoCiva.Business;
 
 import com.civa.retoCiva.Model.Bus;
+import com.civa.retoCiva.Model.BusDTO;
 import com.civa.retoCiva.Repository.BusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,12 +10,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class BusService {
+public class BusServiceImpl implements IBusService{
+
     @Autowired
     private BusRepository busRepository;
 
-    public Page<Bus> findAll(int page, int size ) {
-        return busRepository.findAll(PageRequest.of(page, size));
+    public Page<BusDTO> findAll(int page, int size ) {
+        return busRepository.findAllB(PageRequest.of(page, size));
     }
 
     public Bus findById(Long id ) {
