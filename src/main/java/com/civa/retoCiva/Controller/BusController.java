@@ -1,25 +1,29 @@
 package com.civa.retoCiva.Controller;
 
+import com.civa.retoCiva.Business.BusService;
 import com.civa.retoCiva.Model.Bus;
-import com.civa.retoCiva.Repository.BusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/bus")
 public class BusController {
 
     @Autowired
-    private BusRepository repository;
+    private BusService busService;
 
-    @GetMapping("/bus")
-    List<Bus> getAllBus(){
-        return repository.findAll();
+    @GetMapping("")
+    Page<Bus> getAllBus(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "2") int size){
+        return busService.findAll(page, size);
     }
-    @GetMapping("/bus/{id}")
+
+    @GetMapping("/{id}")
     Bus getBusId(@PathVariable Long id){
-        return repository.findById(id).orElse(null);
+        return busService.findById(id);
     }
+
 }
